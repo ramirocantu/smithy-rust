@@ -4,6 +4,10 @@ use serenity::framework::standard::{CommandResult, StandardFramework};
 use serenity::model::channel::Message;
 use std::env;
 use std::io::Read;
+use calamine::{open_workbook, Error, Xlsx, Reader, RangeDeserializerBuilder}; 
+use std::io::copy;
+use std::fs::File;
+use tempfile::Builder;
 
 #[command]
 fn help(ctx: &mut Context, msg: &Message) -> CommandResult {
@@ -32,6 +36,24 @@ fn start(ctx: &mut Context, msg: &Message) -> CommandResult {
     Ok(())
 }
 
+#[command]
+fn corona(ctx: &mut Context, msg: &Message) -> CommandResult {
+    
+    Ok(())
+}
+
+fn tempDownload(url: String) -> Result<()> {
+    let tmp_dir = Builder::new().prefix("corona").tempdir()?;
+    let res = reqwest::blocking::get(url)?;
+
+    let dest = {
+        let fname = res
+            .url()
+            .path_segments()
+            .and_then(|segments|
+    }
+
+}
 #[group]
 #[commands(help, start)]
 struct General;
